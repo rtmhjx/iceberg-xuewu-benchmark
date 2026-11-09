@@ -1,0 +1,233 @@
+{
+  "format": "iceberg-public-benchmark/1",
+  "datasetSha256": "37c42417e361c088577c7d4ac5747eb9336b85f445d1da1b9448a2713a495a53",
+  "manifests": [
+    {
+      "run": "final-ds-20",
+      "model": "deepseek",
+      "label": "DeepSeek V4.1 Flash",
+      "providerModel": "deepseek-flash",
+      "transport": "DeepSeek native Responses",
+      "effort": {
+        "memoryWrite": "low",
+        "answer": "high"
+      },
+      "outputLimit": {
+        "memoryWrite": 6144,
+        "answer": 2400
+      },
+      "timeoutMs": 130000,
+      "workers": 3,
+      "maxContextChars": 6000,
+      "toolBudget": {
+        "memoryWrite": 12,
+        "answer": 8
+      },
+      "seed": "你是 Tina。面向同一个用户，依据可见原文和已有记忆作答。使用简明自然的中文。",
+      "answerRules": "请直接回应用户，控制在约 150 字。按需调用所提供的只读记忆工具，最多 8 次，接近上限时用已取得的资料作答。能追到来源时可写出对应的 [S1]、[S2] 或 [S3]，找不到就不要编造。",
+      "caseIds": [
+        "stale-lite-01",
+        "stale-lite-02",
+        "stale-lite-03",
+        "stale-lite-04",
+        "stale-lite-05",
+        "stale-lite-06",
+        "stale-lite-07",
+        "stale-lite-08",
+        "stale-lite-09",
+        "stale-lite-10",
+        "stale-lite-11",
+        "stale-lite-12",
+        "stale-lite-13",
+        "stale-lite-14",
+        "stale-lite-15",
+        "stale-lite-16",
+        "stale-lite-17",
+        "stale-lite-18",
+        "stale-lite-19",
+        "stale-lite-20"
+      ]
+    },
+    {
+      "run": "final-sol-20",
+      "model": "sol",
+      "label": "GPT-6.1 Sol Ultra",
+      "providerModel": "gpt-6.1-sol",
+      "transport": "Codex app-server",
+      "effort": {
+        "memoryWrite": "ultra",
+        "answer": "ultra"
+      },
+      "outputLimit": null,
+      "timeoutMs": 155000,
+      "workers": 3,
+      "maxContextChars": 6000,
+      "toolBudget": {
+        "memoryWrite": 12,
+        "answer": 8
+      },
+      "seed": "你是 Tina。面向同一个用户，依据可见原文和已有记忆作答。使用简明自然的中文。",
+      "answerRules": "请直接回应用户，控制在约 150 字。按需调用所提供的只读记忆工具，最多 8 次，接近上限时用已取得的资料作答。能追到来源时可写出对应的 [S1]、[S2] 或 [S3]，找不到就不要编造。",
+      "caseIds": [
+        "stale-lite-01",
+        "stale-lite-02",
+        "stale-lite-03",
+        "stale-lite-04",
+        "stale-lite-05",
+        "stale-lite-06",
+        "stale-lite-07",
+        "stale-lite-08",
+        "stale-lite-09",
+        "stale-lite-10",
+        "stale-lite-11",
+        "stale-lite-12",
+        "stale-lite-13",
+        "stale-lite-14",
+        "stale-lite-15",
+        "stale-lite-16",
+        "stale-lite-17",
+        "stale-lite-18",
+        "stale-lite-19",
+        "stale-lite-20"
+      ]
+    },
+    {
+      "run": "rerun-argon-high",
+      "model": "argonhigh",
+      "label": "Gemini 4 Argon High",
+      "providerModel": "gemini-4-argon",
+      "transport": "OpenCode Go native Gemini",
+      "effort": {
+        "memoryWrite": "high",
+        "answer": "high"
+      },
+      "outputLimit": {
+        "memoryWrite": 16384,
+        "answer": 8192
+      },
+      "timeoutMs": 210000,
+      "workers": 2,
+      "maxContextChars": 6000,
+      "toolBudget": {
+        "memoryWrite": 12,
+        "answer": 8
+      },
+      "seed": "你是 Tina。面向同一个用户，依据可见原文和已有记忆作答。使用简明自然的中文。",
+      "answerRules": "请直接回应用户，控制在约 150 字。按需调用所提供的只读记忆工具，最多 8 次，接近上限时用已取得的资料作答。能追到来源时可写出对应的 [S1]、[S2] 或 [S3]，找不到就不要编造。",
+      "caseIds": [
+        "stale-lite-01",
+        "stale-lite-02",
+        "stale-lite-03",
+        "stale-lite-04",
+        "stale-lite-05",
+        "stale-lite-06",
+        "stale-lite-07",
+        "stale-lite-08",
+        "stale-lite-09",
+        "stale-lite-10",
+        "stale-lite-11",
+        "stale-lite-12",
+        "stale-lite-13",
+        "stale-lite-14",
+        "stale-lite-15",
+        "stale-lite-16",
+        "stale-lite-17",
+        "stale-lite-18",
+        "stale-lite-19",
+        "stale-lite-20"
+      ]
+    },
+    {
+      "run": "rerun-pro-max",
+      "model": "promax",
+      "label": "DeepSeek V4 Pro Max",
+      "providerModel": "deepseek-v4-pro",
+      "transport": "DeepSeek native Responses",
+      "effort": {
+        "memoryWrite": "max",
+        "answer": "max"
+      },
+      "outputLimit": {
+        "memoryWrite": 16384,
+        "answer": 8192
+      },
+      "timeoutMs": 210000,
+      "workers": 2,
+      "maxContextChars": 6000,
+      "toolBudget": {
+        "memoryWrite": 12,
+        "answer": 8
+      },
+      "seed": "你是 Tina。面向同一个用户，依据可见原文和已有记忆作答。使用简明自然的中文。",
+      "answerRules": "请直接回应用户，控制在约 150 字。按需调用所提供的只读记忆工具，最多 8 次，接近上限时用已取得的资料作答。能追到来源时可写出对应的 [S1]、[S2] 或 [S3]，找不到就不要编造。",
+      "caseIds": [
+        "stale-lite-01",
+        "stale-lite-02",
+        "stale-lite-03",
+        "stale-lite-04",
+        "stale-lite-05",
+        "stale-lite-06",
+        "stale-lite-07",
+        "stale-lite-08",
+        "stale-lite-09",
+        "stale-lite-10",
+        "stale-lite-11",
+        "stale-lite-12",
+        "stale-lite-13",
+        "stale-lite-14",
+        "stale-lite-15",
+        "stale-lite-16",
+        "stale-lite-17",
+        "stale-lite-18",
+        "stale-lite-19",
+        "stale-lite-20"
+      ]
+    },
+    {
+      "run": "rerun-flash-max",
+      "model": "flashmax",
+      "label": "DeepSeek V4.1 Flash Max",
+      "providerModel": "deepseek-flash",
+      "transport": "DeepSeek native Responses",
+      "effort": {
+        "memoryWrite": "max",
+        "answer": "max"
+      },
+      "outputLimit": {
+        "memoryWrite": 16384,
+        "answer": 8192
+      },
+      "timeoutMs": 210000,
+      "workers": 2,
+      "maxContextChars": 6000,
+      "toolBudget": {
+        "memoryWrite": 12,
+        "answer": 8
+      },
+      "seed": "你是 Tina。面向同一个用户，依据可见原文和已有记忆作答。使用简明自然的中文。",
+      "answerRules": "请直接回应用户，控制在约 150 字。按需调用所提供的只读记忆工具，最多 8 次，接近上限时用已取得的资料作答。能追到来源时可写出对应的 [S1]、[S2] 或 [S3]，找不到就不要编造。",
+      "caseIds": [
+        "stale-lite-01",
+        "stale-lite-02",
+        "stale-lite-03",
+        "stale-lite-04",
+        "stale-lite-05",
+        "stale-lite-06",
+        "stale-lite-07",
+        "stale-lite-08",
+        "stale-lite-09",
+        "stale-lite-10",
+        "stale-lite-11",
+        "stale-lite-12",
+        "stale-lite-13",
+        "stale-lite-14",
+        "stale-lite-15",
+        "stale-lite-16",
+        "stale-lite-17",
+        "stale-lite-18",
+        "stale-lite-19",
+        "stale-lite-20"
+      ]
+    }
+  ]
+}

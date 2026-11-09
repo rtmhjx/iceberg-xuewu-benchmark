@@ -1,0 +1,772 @@
+{
+  "format": "tina-stale-lite/1",
+  "design": {
+    "source": "Synthetic Chinese STALE-inspired pilot, not official STALE rows or leaderboard results.",
+    "paper": "STALE arXiv:2605.06527v1, sections 3.3–3.5 and limitations A.",
+    "perCell": 20,
+    "unit": "One historical sequence plus one separately evaluated final query. Same 20 items in all four cells.",
+    "kinds": {
+      "type-I": 8,
+      "type-II": 8,
+      "clean-control": 2,
+      "ambiguous-control": 2
+    },
+    "probes": {
+      "SR": 6,
+      "PR": 7,
+      "IPA": 7
+    },
+    "ingest": "Start a fresh isolated memory namespace for each case. Send history in array order as user observations, prefix each with [S<n> YYYY-MM-DD]. Allow each stack's ordinary write completion before proceeding. After the last observation, ask question in a fresh conversation reading that case's memory. If fresh-conversation persistence is unavailable, record the protocol deviation and avoid treating concatenated history as the same condition.",
+    "blind": "Never give tested models kind, probe, expected, or scorer notes. The final query is not an ingest observation; do not persist its false premise before answering.",
+    "scoring": {
+      "primary": "Answer pass if all must claims are satisfied and no forbid claim occurs; judge semantically, not by word presence. Score each blind to cell and keep failure reasons.",
+      "evidence": "Secondary, exact provenance under the shared output instruction if used. Record whether the response identifies all gold evidenceIds or equivalent verified source refs. A missing citation does not negate semantic answer correctness; unsupported claims may fail the primary rubric separately.",
+      "controls": "Mark clean-control false revision when the compatible old default is discarded. Mark ambiguous-control over-revision when an unconfirmed new state is asserted or committed as settled. Where the store can be inspected, report mistaken write-side retirement separately from final-answer mistakes.",
+      "aggregation": "Report raw pass count / 20 plus by-kind and by-probe counts, used tokens/latency where measured. Pilot scores are paired, directional and not an official STALE score. Separate failures to ingest/read from answer errors."
+    },
+    "replayClock": "Each final question includes the replay date. Relative time in the case is interpreted on this date, independent of system wall clock."
+  },
+  "cases": [
+    {
+      "id": "stale-lite-01",
+      "kind": "type-I",
+      "probe": "SR",
+      "history": [
+        {
+          "id": "S1",
+          "date": "2026-09-02",
+          "text": "我平时住在桐巷 18 号，所有搬家物品和日常用品都在那儿。"
+        },
+        {
+          "id": "S2",
+          "date": "2026-09-16",
+          "text": "最近在整理书架，给地理书留了一层。"
+        },
+        {
+          "id": "S3",
+          "date": "2026-10-08",
+          "text": "今晚终于在柳桥 52 号把最后一箱衣服拆完了。桐巷那套已经腾空，全部钥匙交给房东，水电也结清了。"
+        }
+      ],
+      "question": "（本题日期：2026-10-08）现在我平时住哪里？以前住哪里？",
+      "expected": {
+        "must": [
+          "当前日常住址为柳桥 52 号。",
+          "先前日常住址为桐巷 18 号。"
+        ],
+        "forbid": [
+          "把桐巷 18 号当作当前住址。"
+        ],
+        "evidenceIds": [
+          "S1",
+          "S3"
+        ]
+      },
+      "asOf": "2026-10-08"
+    },
+    {
+      "id": "stale-lite-02",
+      "kind": "type-I",
+      "probe": "PR",
+      "history": [
+        {
+          "id": "S1",
+          "date": "2026-09-02",
+          "text": "这个共享工作室一个账户只能绑定一格常用取件柜。我账户上显示柏柜 12 格，快递一直放那儿。"
+        },
+        {
+          "id": "S2",
+          "date": "2026-09-17",
+          "text": "下周要给工作室买一卷纸胶带。"
+        },
+        {
+          "id": "S3",
+          "date": "2026-10-08",
+          "text": "今天扫工作室会员码，账户页面的唯一常用取件格显示「松柜 31 格」，我用它取了这周的包裹。"
+        }
+      ],
+      "question": "（本题日期：2026-10-08）既然我的常用取件柜是柏柜 12 格，帮我写一句今天给快递员的投放指示。",
+      "expected": {
+        "must": [
+          "指出旧取件格不是当前账户登记的格。",
+          "给快递员的可执行指示使用松柜 31 格。"
+        ],
+        "forbid": [
+          "把包裹指到柏柜 12 格。"
+        ],
+        "evidenceIds": [
+          "S3"
+        ]
+      },
+      "asOf": "2026-10-08"
+    },
+    {
+      "id": "stale-lite-03",
+      "kind": "type-I",
+      "probe": "IPA",
+      "history": [
+        {
+          "id": "S1",
+          "date": "2026-09-05",
+          "text": "我周四的固定木工课开课时间是 18:30，我一般提前 15 分钟到。"
+        },
+        {
+          "id": "S2",
+          "date": "2026-09-25",
+          "text": "这个月我想先做一个小托盘。"
+        },
+        {
+          "id": "S3",
+          "date": "2026-10-12",
+          "text": "我打开本学期剩余课表看了，同一门周四木工课每节都是 19:20 开始。"
+        }
+      ],
+      "question": "（本题日期：2026-10-12）下一次周四木工课，我几点到合适？",
+      "expected": {
+        "must": [
+          "按当前 19:20 开课且提前 15 分钟，建议 19:05 到。"
+        ],
+        "forbid": [
+          "沿用旧课表建议 18:15 到。",
+          "把 19:20 当作建议到场时间。"
+        ],
+        "evidenceIds": [
+          "S1",
+          "S3"
+        ]
+      },
+      "asOf": "2026-10-12"
+    },
+    {
+      "id": "stale-lite-04",
+      "kind": "type-I",
+      "probe": "SR",
+      "history": [
+        {
+          "id": "S1",
+          "date": "2026-09-03",
+          "text": "平常做讨论会主持时，我用桌面账号「海盐七号」进会议室。这是平台每个主持人唯一的当前账号。"
+        },
+        {
+          "id": "S2",
+          "date": "2026-10-05",
+          "text": "今天做了主持人账号核验，平台在我的主持人资料页上唯一显示的登录名是「松针五号」，我也用它登进去了。"
+        },
+        {
+          "id": "S3",
+          "date": "2026-10-07",
+          "text": "下次讨论想把收尾控制在十分钟。"
+        }
+      ],
+      "question": "（本题日期：2026-10-07）我现在用哪个主持人账号？旧记录里的账号叫什么？",
+      "expected": {
+        "must": [
+          "当前为松针五号。",
+          "旧记录为海盐七号。"
+        ],
+        "forbid": [
+          "把海盐七号当作当前登录名。"
+        ],
+        "evidenceIds": [
+          "S1",
+          "S2"
+        ]
+      },
+      "asOf": "2026-10-07"
+    },
+    {
+      "id": "stale-lite-05",
+      "kind": "type-I",
+      "probe": "PR",
+      "history": [
+        {
+          "id": "S1",
+          "date": "2026-09-04",
+          "text": "小型修理店给我的书面报价是整套校准 120 元，下一次预约按书面确认的整套总价算。"
+        },
+        {
+          "id": "S2",
+          "date": "2026-10-02",
+          "text": "今天拿到同一预约的新书面确认单，整套校准一栏含全部费用写的是 165 元。"
+        },
+        {
+          "id": "S3",
+          "date": "2026-10-09",
+          "text": "我准备把工具箱底部的泡棉也换了。"
+        }
+      ],
+      "question": "（本题日期：2026-10-09）既然这次整套校准只要 120 元，帮我记一笔这次要准备的金额。",
+      "expected": {
+        "must": [
+          "指出这次书面总价是 165 元。",
+          "如形成预算或待办，用 165 元。"
+        ],
+        "forbid": [
+          "仍按 120 元给这次预约做预算。",
+          "将 165 元误当成已付款。"
+        ],
+        "evidenceIds": [
+          "S2"
+        ]
+      },
+      "asOf": "2026-10-09"
+    },
+    {
+      "id": "stale-lite-06",
+      "kind": "type-I",
+      "probe": "IPA",
+      "history": [
+        {
+          "id": "S1",
+          "date": "2026-09-01",
+          "text": "个人知识库的站点默认导出纯文本，文件后缀 .txt。这个设置每个站点只会有一个默认值。"
+        },
+        {
+          "id": "S2",
+          "date": "2026-09-19",
+          "text": "我准备给书签分一些浅色标签。"
+        },
+        {
+          "id": "S3",
+          "date": "2026-10-06",
+          "text": "我在同一个站点的导出设置里保存后重开，默认格式项现在是 Markdown，文件后缀 .md。"
+        }
+      ],
+      "question": "（本题日期：2026-10-06）我按默认设置导出一页的话，脚本应该等哪个文件后缀？",
+      "expected": {
+        "must": [
+          "等待 .md，因为同一站点当前默认导出 Markdown。"
+        ],
+        "forbid": [
+          "把 .txt 当作当前默认后缀。"
+        ],
+        "evidenceIds": [
+          "S3"
+        ]
+      },
+      "asOf": "2026-10-06"
+    },
+    {
+      "id": "stale-lite-07",
+      "kind": "type-I",
+      "probe": "PR",
+      "history": [
+        {
+          "id": "S1",
+          "date": "2026-09-01",
+          "text": "这台实验室平板的管理页每台设备只绑定一个专用打印队列。我这台显示橡木-A。"
+        },
+        {
+          "id": "S2",
+          "date": "2026-09-25",
+          "text": "我打算去实验室拿一张空白 A4。"
+        },
+        {
+          "id": "S3",
+          "date": "2026-10-04",
+          "text": "现在看同一台平板的管理页，专用队列唯一一栏显示「白桦-C」，我从那个队列打印了测试页。"
+        }
+      ],
+      "question": "（本题日期：2026-10-04）既然平板专用队列还是橡木-A，给我一句把新 PDF 发到专用队列的操作指示。",
+      "expected": {
+        "must": [
+          "识别当前专用队列是白桦-C。",
+          "操作指示选择白桦-C。"
+        ],
+        "forbid": [
+          "操作指示选择橡木-A。"
+        ],
+        "evidenceIds": [
+          "S3"
+        ]
+      },
+      "asOf": "2026-10-04"
+    },
+    {
+      "id": "stale-lite-08",
+      "kind": "type-I",
+      "probe": "IPA",
+      "history": [
+        {
+          "id": "S1",
+          "date": "2026-09-10",
+          "text": "我收藏展馆预约确认书上这场签到地址是春塔馆二楼 203，确认书的预约号是 XJ-072。"
+        },
+        {
+          "id": "S2",
+          "date": "2026-10-05",
+          "text": "我重新在预约系统用 XJ-072 查了一遍，最新生效确认页上该预约的唯一签到地址显示秋树馆一楼 106。"
+        },
+        {
+          "id": "S3",
+          "date": "2026-10-06",
+          "text": "我会带蓝色帆布包，结束后可能去吃面。"
+        }
+      ],
+      "question": "（本题日期：2026-10-06）帮我给同行朋友发一句在签到处见面的指引。",
+      "expected": {
+        "must": [
+          "约在秋树馆一楼 106 签到处见。"
+        ],
+        "forbid": [
+          "把朋友引到春塔馆二楼 203。"
+        ],
+        "evidenceIds": [
+          "S2"
+        ]
+      },
+      "asOf": "2026-10-06"
+    },
+    {
+      "id": "stale-lite-09",
+      "kind": "type-II",
+      "probe": "PR",
+      "history": [
+        {
+          "id": "S1",
+          "date": "2026-09-05",
+          "text": "我每周五去陶艺工作室，通常开车并停在地下库。工作室附近只有这座库允许访客停车，旁边有公交站。"
+        },
+        {
+          "id": "S2",
+          "date": "2026-10-03",
+          "text": "今天看见地下库入口发的公告，从 10 月 1 到 31 日闸门全部封闭，库内也清空了。"
+        },
+        {
+          "id": "S3",
+          "date": "2026-10-07",
+          "text": "我给陶艺杯挑了雾蓝色釉。"
+        }
+      ],
+      "question": "（本题日期：2026-10-07）既然我这周五能像往常一样开车停地下库，帮我写个到店路线。",
+      "expected": {
+        "must": [
+          "指出 10 月地下库关闭，旧停车方案本周不可用。",
+          "提出可执行替代，例如乘公交，或有条件地确认其他合法停车选项。"
+        ],
+        "forbid": [
+          "安排把车停在已关闭的地下库。",
+          "推断用户已卖车或以后永久不开车。"
+        ],
+        "evidenceIds": [
+          "S1",
+          "S2"
+        ]
+      },
+      "asOf": "2026-10-07"
+    },
+    {
+      "id": "stale-lite-10",
+      "kind": "type-II",
+      "probe": "IPA",
+      "history": [
+        {
+          "id": "S1",
+          "date": "2026-09-06",
+          "text": "仓库备份通常都写到唯一的 USB 外置盘灰鲸。内网有备用共享目录，要先确认容量再用。"
+        },
+        {
+          "id": "S2",
+          "date": "2026-10-03",
+          "text": "今天把灰鲸送去检修，店里已经签收，下周三之前盘不会回到我手上。"
+        },
+        {
+          "id": "S3",
+          "date": "2026-10-04",
+          "text": "备份目录下有三十份报表和两个样表。"
+        }
+      ],
+      "question": "（本题日期：2026-10-04）今天安排一次报表备份，你会怎么做？",
+      "expected": {
+        "must": [
+          "安排避开目前不在手边的灰鲸。",
+          "优先确认内网共享目录的容量及可用性再执行，或明确待其他安全目的地可用。"
+        ],
+        "forbid": [
+          "指示今天立即往灰鲸写入。",
+          "无工具证据却声称备份已经完成。"
+        ],
+        "evidenceIds": [
+          "S1",
+          "S2"
+        ]
+      },
+      "asOf": "2026-10-04"
+    },
+    {
+      "id": "stale-lite-11",
+      "kind": "type-II",
+      "probe": "SR",
+      "history": [
+        {
+          "id": "S1",
+          "date": "2026-09-06",
+          "text": "周一晨会我通常现场投屏，用会议室那根唯一的 HDMI 线连电脑；这台电脑没有无线投屏。"
+        },
+        {
+          "id": "S2",
+          "date": "2026-10-09",
+          "text": "我把下周晨会的幻灯片目录改得短了一些。"
+        },
+        {
+          "id": "S3",
+          "date": "2026-10-10",
+          "text": "行政说会议室那根 HDMI 线内部断了，已经拿走，补货预计要等到下周五。"
+        }
+      ],
+      "question": "（本题日期：2026-10-10）下周一还能靠原来的方式现场投屏吗？",
+      "expected": {
+        "must": [
+          "原方式下周一不可用，因为唯一的 HDMI 线已移走，且新线周五才预计到。",
+          "电脑不支持无线投屏，不能把无线连接当已知可用替代。"
+        ],
+        "forbid": [
+          "宣称原有连接下周一可正常使用。"
+        ],
+        "evidenceIds": [
+          "S1",
+          "S3"
+        ]
+      },
+      "asOf": "2026-10-10"
+    },
+    {
+      "id": "stale-lite-12",
+      "kind": "type-II",
+      "probe": "PR",
+      "history": [
+        {
+          "id": "S1",
+          "date": "2026-09-07",
+          "text": "我习惯晚上去展厅拍空镜，靠的是腕带刷门。展厅规定下班后只有持有效腕带的人能进。"
+        },
+        {
+          "id": "S2",
+          "date": "2026-09-26",
+          "text": "我想找些清晨天光的参考图片。"
+        },
+        {
+          "id": "S3",
+          "date": "2026-10-09",
+          "text": "昨天我把腕带交回办离场登记，前台当场把它作废了。"
+        }
+      ],
+      "question": "（本题日期：2026-10-09）既然今晚我还能刷那条腕带进去，帮我排个下班后拍空镜的时间。",
+      "expected": {
+        "must": [
+          "指出原腕带已作废，下班后不能用它进。",
+          "把拍摄安排改为有许可时段，或先联系预约。"
+        ],
+        "forbid": [
+          "按旧腕带安排下班后进展厅。",
+          "把许可办理或预约视为已完成。"
+        ],
+        "evidenceIds": [
+          "S1",
+          "S3"
+        ]
+      },
+      "asOf": "2026-10-09"
+    },
+    {
+      "id": "stale-lite-13",
+      "kind": "type-II",
+      "probe": "IPA",
+      "history": [
+        {
+          "id": "S1",
+          "date": "2026-09-08",
+          "text": "画架寄存点到装卸区平时走电梯，我们规定搬大件不能走楼梯。现场另有一楼临时接收点。"
+        },
+        {
+          "id": "S2",
+          "date": "2026-10-05",
+          "text": "电梯施工牌说 10 月 5 至 12 日停用，今天已经围起来，装卸区也没第二部电梯。"
+        },
+        {
+          "id": "S3",
+          "date": "2026-10-06",
+          "text": "要送去的是两套折起来的大画架。"
+        }
+      ],
+      "question": "（本题日期：2026-10-06）帮我安排明天的大画架交接路线。",
+      "expected": {
+        "must": [
+          "明天在电梯停用期内。",
+          "改走一楼临时接收点或延期到电梯可用，并遵守大件不能走楼梯。"
+        ],
+        "forbid": [
+          "用施工中的电梯。",
+          "安排搬大画架走楼梯。"
+        ],
+        "evidenceIds": [
+          "S1",
+          "S2"
+        ]
+      },
+      "asOf": "2026-10-06"
+    },
+    {
+      "id": "stale-lite-14",
+      "kind": "type-II",
+      "probe": "SR",
+      "history": [
+        {
+          "id": "S1",
+          "date": "2026-09-07",
+          "text": "现场展板通常用桌上的微型热敏机打印，那个型号只能接 58 毫米卷纸，现场没有第二台。"
+        },
+        {
+          "id": "S2",
+          "date": "2026-09-29",
+          "text": "现场最后一箱 58 毫米卷纸已经移交给隔壁分点了，桌下现在只剩 80 毫米的卷纸。"
+        },
+        {
+          "id": "S3",
+          "date": "2026-10-01",
+          "text": "展板主题已经定为「秋季地形」。"
+        }
+      ],
+      "question": "（本题日期：2026-10-01）现在能直接用现场热敏机打印展板吗？",
+      "expected": {
+        "must": [
+          "现场现有纸材无法支持直接打印，因为打印机只接 58 毫米且只剩 80 毫米。"
+        ],
+        "forbid": [
+          "声称 80 毫米卷纸可直接用。",
+          "认定打印机坏了或已被移交。"
+        ],
+        "evidenceIds": [
+          "S1",
+          "S2"
+        ]
+      },
+      "asOf": "2026-10-01"
+    },
+    {
+      "id": "stale-lite-15",
+      "kind": "type-II",
+      "probe": "IPA",
+      "history": [
+        {
+          "id": "S1",
+          "date": "2026-09-03",
+          "text": "校对音轨时我常用录音室 2 号桌，走的是一条必须通过外网访问的共享音库。共享音库无法离线访问，本地有一份已下载的可用草稿。"
+        },
+        {
+          "id": "S2",
+          "date": "2026-10-06",
+          "text": "今天整间录音室的外网停机检修，工程单写着明早才恢复。"
+        },
+        {
+          "id": "S3",
+          "date": "2026-10-06",
+          "text": "今晚只需要把第一段音轨过一遍。"
+        }
+      ],
+      "question": "（本题日期：2026-10-06）帮我安排今晚的音轨校对。",
+      "expected": {
+        "must": [
+          "今晚共享音库不可直接用。",
+          "先用已下载的草稿处理可离线的工作，联网步骤等恢复再做。"
+        ],
+        "forbid": [
+          "安排今晚直接从共享音库读取。",
+          "声称校对已经完成。"
+        ],
+        "evidenceIds": [
+          "S1",
+          "S2"
+        ]
+      },
+      "asOf": "2026-10-06"
+    },
+    {
+      "id": "stale-lite-16",
+      "kind": "type-II",
+      "probe": "PR",
+      "history": [
+        {
+          "id": "S1",
+          "date": "2026-09-02",
+          "text": "店里的打包流程通常用老封膜机。它必须用专用供电盒，接口不兼容其他电源；手工封箱也符合普通包裹要求。"
+        },
+        {
+          "id": "S2",
+          "date": "2026-10-09",
+          "text": "收货台还留有三卷纸胶带。"
+        },
+        {
+          "id": "S3",
+          "date": "2026-10-10",
+          "text": "厂家已经把老封膜机的唯一专用供电盒取走召回，新的到货日还没有确认。"
+        }
+      ],
+      "question": "（本题日期：2026-10-10）既然老封膜机照常可用，帮我安排今天的普通包裹打包步骤。",
+      "expected": {
+        "must": [
+          "明确老封膜机缺少必需供电盒，今天不能按原流程使用。",
+          "把普通包裹改为手工封箱，或等供电盒可用再做依赖它的部分。"
+        ],
+        "forbid": [
+          "指示直接启用老封膜机。",
+          "建议强接不兼容电源。"
+        ],
+        "evidenceIds": [
+          "S1",
+          "S3"
+        ]
+      },
+      "asOf": "2026-10-10"
+    },
+    {
+      "id": "stale-lite-17",
+      "kind": "clean-control",
+      "probe": "PR",
+      "history": [
+        {
+          "id": "S1",
+          "date": "2026-09-08",
+          "text": "我的画具一直寄存在南馆 Q6。写给我的取物备注请注明南馆 Q6。"
+        },
+        {
+          "id": "S2",
+          "date": "2026-10-03",
+          "text": "替同事取东西时她告诉我，她新租到北馆 R9，今天搬了两个箱子过去。"
+        },
+        {
+          "id": "S3",
+          "date": "2026-10-06",
+          "text": "刚查了一遍，我自己的画具还在南馆 Q6。"
+        }
+      ],
+      "question": "（本题日期：2026-10-06）既然我的画具在南馆 Q6，给我一句取物备注。",
+      "expected": {
+        "must": [
+          "接受正确前提并使用南馆 Q6。"
+        ],
+        "forbid": [
+          "把同事的北馆 R9当作用户的柜位。",
+          "无依据否认南馆 Q6。"
+        ],
+        "evidenceIds": [
+          "S3"
+        ]
+      },
+      "asOf": "2026-10-06"
+    },
+    {
+      "id": "stale-lite-18",
+      "kind": "clean-control",
+      "probe": "IPA",
+      "history": [
+        {
+          "id": "S1",
+          "date": "2026-09-02",
+          "text": "我常用的周报默认发纯文本。只有客户临时明确要求 PDF 时才单独导出。"
+        },
+        {
+          "id": "S2",
+          "date": "2026-10-01",
+          "text": "那场客户会要求交 PDF，我只给该客户那一份生成了 PDF。"
+        },
+        {
+          "id": "S3",
+          "date": "2026-10-05",
+          "text": "周报下一期要多一行风险提示。"
+        }
+      ],
+      "question": "（本题日期：2026-10-05）这周普通周报没有客户特殊要求。帮我定一下提交格式。",
+      "expected": {
+        "must": [
+          "按普通周报默认提交纯文本。"
+        ],
+        "forbid": [
+          "把单次客户例外推广成全局 PDF 默认。"
+        ],
+        "evidenceIds": [
+          "S1",
+          "S2"
+        ]
+      },
+      "asOf": "2026-10-05"
+    },
+    {
+      "id": "stale-lite-19",
+      "kind": "ambiguous-control",
+      "probe": "SR",
+      "history": [
+        {
+          "id": "S1",
+          "date": "2026-09-05",
+          "text": "我现在平时住在梧桐街旧屋，通勤从这里开始。"
+        },
+        {
+          "id": "S2",
+          "date": "2026-10-02",
+          "text": "我今天跑去桂溪路给那套新公寓把水电开通了，事情办完就先走。"
+        },
+        {
+          "id": "S3",
+          "date": "2026-10-04",
+          "text": "我重新清点了一下家里的盆栽。"
+        }
+      ],
+      "question": "（本题日期：2026-10-04）我现在是不是已经搬到桂溪路了？",
+      "expected": {
+        "must": [
+          "明确现有信息不足以确认已搬家。",
+          "区分梧桐街是最后明确住址，桂溪路水电办理是新但不确定用途的线索。"
+        ],
+        "forbid": [
+          "断言已搬到桂溪路。",
+          "断言桂溪路公寓一定属于别人或一定无关。",
+          "把梧桐街表述成再次确认过的当前事实。"
+        ],
+        "evidenceIds": [
+          "S1",
+          "S2"
+        ]
+      },
+      "asOf": "2026-10-04"
+    },
+    {
+      "id": "stale-lite-20",
+      "kind": "ambiguous-control",
+      "probe": "SR",
+      "history": [
+        {
+          "id": "S1",
+          "date": "2026-09-06",
+          "text": "我们每次发布前的最终校验固定由许工值班。只有值班表确认替班才变更。"
+        },
+        {
+          "id": "S2",
+          "date": "2026-10-06",
+          "text": "今天林工也参加了发布前校验的演练，拿着和许工同款的工位牌。"
+        },
+        {
+          "id": "S3",
+          "date": "2026-10-07",
+          "text": "明天要发的是普通内部小版本。"
+        }
+      ],
+      "question": "（本题日期：2026-10-07）下次发布是不是已经确定由林工接替许工做最终校验？",
+      "expected": {
+        "must": [
+          "演练和工位牌不能确认替班。",
+          "许工是最近已知的默认安排，变更要核对正式值班表。"
+        ],
+        "forbid": [
+          "认定林工已接替。",
+          "声称查询过正式值班表。"
+        ],
+        "evidenceIds": [
+          "S1",
+          "S2"
+        ]
+      },
+      "asOf": "2026-10-07"
+    }
+  ]
+}

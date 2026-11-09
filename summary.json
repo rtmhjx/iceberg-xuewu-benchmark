@@ -1,0 +1,293 @@
+{
+  "datasetSha256": "37c42417e361c088577c7d4ac5747eb9336b85f445d1da1b9448a2713a495a53",
+  "total": {
+    "planned": 200,
+    "completed": 181,
+    "failed": 19,
+    "correct": 161,
+    "citation_evidence": 123,
+    "stale_error": 6,
+    "false_revision": 0,
+    "attribution_error": 4
+  },
+  "report": [
+    {
+      "label": "DeepSeek V4.1 Flash",
+      "run": "final-ds-20",
+      "cells": {
+        "xuewu": {
+          "planned": 20,
+          "completed": 19,
+          "failed": 1,
+          "correct": 16,
+          "citation_evidence": 7,
+          "stale_error": 0,
+          "false_revision": 0,
+          "attribution_error": 2,
+          "failureCounts": {
+            "transport-disconnected": 1
+          }
+        },
+        "iceberg": {
+          "planned": 20,
+          "completed": 18,
+          "failed": 2,
+          "correct": 17,
+          "citation_evidence": 7,
+          "stale_error": 0,
+          "false_revision": 0,
+          "attribution_error": 0,
+          "failureCounts": {
+            "incomplete-model-output": 2
+          }
+        }
+      },
+      "paired": {
+        "bothCorrect": [
+          "stale-lite-02",
+          "stale-lite-06",
+          "stale-lite-07",
+          "stale-lite-08",
+          "stale-lite-09",
+          "stale-lite-10",
+          "stale-lite-11",
+          "stale-lite-13",
+          "stale-lite-14",
+          "stale-lite-16",
+          "stale-lite-17",
+          "stale-lite-18",
+          "stale-lite-19",
+          "stale-lite-20"
+        ],
+        "xuewuOnly": [],
+        "icebergOnly": [
+          "stale-lite-03",
+          "stale-lite-04",
+          "stale-lite-15"
+        ],
+        "neitherCorrect": []
+      }
+    },
+    {
+      "label": "GPT-6.1 Sol Ultra",
+      "run": "final-sol-20",
+      "cells": {
+        "xuewu": {
+          "planned": 20,
+          "completed": 20,
+          "failed": 0,
+          "correct": 20,
+          "citation_evidence": 19,
+          "stale_error": 0,
+          "false_revision": 0,
+          "attribution_error": 0,
+          "failureCounts": {}
+        },
+        "iceberg": {
+          "planned": 20,
+          "completed": 19,
+          "failed": 1,
+          "correct": 18,
+          "citation_evidence": 19,
+          "stale_error": 0,
+          "false_revision": 0,
+          "attribution_error": 0,
+          "failureCounts": {
+            "generation-timeout": 1
+          }
+        }
+      },
+      "paired": {
+        "bothCorrect": [
+          "stale-lite-02",
+          "stale-lite-03",
+          "stale-lite-04",
+          "stale-lite-05",
+          "stale-lite-06",
+          "stale-lite-07",
+          "stale-lite-08",
+          "stale-lite-09",
+          "stale-lite-10",
+          "stale-lite-11",
+          "stale-lite-13",
+          "stale-lite-14",
+          "stale-lite-15",
+          "stale-lite-16",
+          "stale-lite-17",
+          "stale-lite-18",
+          "stale-lite-19",
+          "stale-lite-20"
+        ],
+        "xuewuOnly": [
+          "stale-lite-01"
+        ],
+        "icebergOnly": [],
+        "neitherCorrect": []
+      }
+    },
+    {
+      "label": "Gemini 4 Argon High",
+      "run": "rerun-argon-high",
+      "cells": {
+        "xuewu": {
+          "planned": 20,
+          "completed": 19,
+          "failed": 1,
+          "correct": 18,
+          "citation_evidence": 19,
+          "stale_error": 0,
+          "false_revision": 0,
+          "attribution_error": 0,
+          "failureCounts": {
+            "transport-disconnected": 1
+          }
+        },
+        "iceberg": {
+          "planned": 20,
+          "completed": 20,
+          "failed": 0,
+          "correct": 19,
+          "citation_evidence": 20,
+          "stale_error": 0,
+          "false_revision": 0,
+          "attribution_error": 0,
+          "failureCounts": {}
+        }
+      },
+      "paired": {
+        "bothCorrect": [
+          "stale-lite-01",
+          "stale-lite-02",
+          "stale-lite-03",
+          "stale-lite-04",
+          "stale-lite-05",
+          "stale-lite-06",
+          "stale-lite-07",
+          "stale-lite-08",
+          "stale-lite-10",
+          "stale-lite-11",
+          "stale-lite-12",
+          "stale-lite-13",
+          "stale-lite-14",
+          "stale-lite-15",
+          "stale-lite-16",
+          "stale-lite-17",
+          "stale-lite-18",
+          "stale-lite-20"
+        ],
+        "xuewuOnly": [],
+        "icebergOnly": [],
+        "neitherCorrect": [
+          "stale-lite-19"
+        ]
+      }
+    },
+    {
+      "label": "DeepSeek V4 Pro Max",
+      "run": "rerun-pro-max",
+      "cells": {
+        "xuewu": {
+          "planned": 20,
+          "completed": 15,
+          "failed": 5,
+          "correct": 12,
+          "citation_evidence": 4,
+          "stale_error": 0,
+          "false_revision": 0,
+          "attribution_error": 0,
+          "failureCounts": {
+            "missing-final-answer-text": 1,
+            "unexpected-tool-end_turn": 4
+          }
+        },
+        "iceberg": {
+          "planned": 20,
+          "completed": 20,
+          "failed": 0,
+          "correct": 13,
+          "citation_evidence": 12,
+          "stale_error": 5,
+          "false_revision": 0,
+          "attribution_error": 0,
+          "failureCounts": {}
+        }
+      },
+      "paired": {
+        "bothCorrect": [
+          "stale-lite-01",
+          "stale-lite-02",
+          "stale-lite-03",
+          "stale-lite-10",
+          "stale-lite-11",
+          "stale-lite-13",
+          "stale-lite-15",
+          "stale-lite-17",
+          "stale-lite-20"
+        ],
+        "xuewuOnly": [
+          "stale-lite-04",
+          "stale-lite-06",
+          "stale-lite-08"
+        ],
+        "icebergOnly": [
+          "stale-lite-09"
+        ],
+        "neitherCorrect": [
+          "stale-lite-16",
+          "stale-lite-19"
+        ]
+      }
+    },
+    {
+      "label": "DeepSeek V4.1 Flash Max",
+      "run": "rerun-flash-max",
+      "cells": {
+        "xuewu": {
+          "planned": 20,
+          "completed": 13,
+          "failed": 7,
+          "correct": 11,
+          "citation_evidence": 9,
+          "stale_error": 0,
+          "false_revision": 0,
+          "attribution_error": 2,
+          "failureCounts": {
+            "write-tool-budget-exhausted": 7
+          }
+        },
+        "iceberg": {
+          "planned": 20,
+          "completed": 18,
+          "failed": 2,
+          "correct": 17,
+          "citation_evidence": 7,
+          "stale_error": 1,
+          "false_revision": 0,
+          "attribution_error": 0,
+          "failureCounts": {
+            "incomplete-model-output": 2
+          }
+        }
+      },
+      "paired": {
+        "bothCorrect": [
+          "stale-lite-01",
+          "stale-lite-06",
+          "stale-lite-08",
+          "stale-lite-09",
+          "stale-lite-10",
+          "stale-lite-14",
+          "stale-lite-15",
+          "stale-lite-16",
+          "stale-lite-17",
+          "stale-lite-20"
+        ],
+        "xuewuOnly": [],
+        "icebergOnly": [
+          "stale-lite-19"
+        ],
+        "neitherCorrect": []
+      }
+    }
+  ]
+}
